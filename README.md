@@ -1,20 +1,20 @@
 # W6-api-sentiment-project_DaniHelguera-
+# Emotions check on Amazon Products Reviews
 
 This project tries to develop a method for "objective emotional" evaluation of amazon products review.
-It consists on several succesive scripts:
+The final aim is to be able to evaluate the emotions that a product generates in the purchasers by the analysis of the text writen as review, not only seeing the number of stars given to that product.
+
+
+## Project steps:
+The project consists on several steps that are also documented by the following succesive scripts:
     01_Data_loading_cleaning_exporting.ipynb
     02_SQL_DB_Structure_creation.sql
     02_SQL_DB_Structure_Schema_after_Reverse_Engineering.png
     03_Feeding_the_SQL_DataBase.ipynb
     04_Api_calls.ipynb
     05_Sentiment_analysis.ipynb
-    main.py
-The final aim is to be able to evaluate the emotions that a product generates in the purchasers.
-To download the revies, it is possible to make web-scrapping in the amazon webpage of a determined product and to automatically download all reviews.
 
-# Project steps:
-
-## 1) Find and clean a suitable data that includes texts to be analyzed under an emotional perpective.
+### 1) Find and clean a suitable data that includes texts to be analyzed under an emotional perpective.
 A CSV data including around 34.000 Amazon Product Reviews has been found at Kaagle.
 After cleaning and reorganizing the data in Python, the data base has been reduced to a total of 27405 different ratings.
 Following columns have been identified as relevant ones in order to analyse the reviews:
@@ -31,7 +31,7 @@ Following columns have been identified as relevant ones in order to analyse the 
 A new CSV datafile with the cleaned reviews has been exported and saved in data directory.
 The script "01_Data_loading_cleaning_exporting.ipynb" includes all necesary operations.
 
-## 2) Design the structure of your own database depending on the type of info you want to store.
+### 2) Design the structure of your own database depending on the type of info you want to store.
 A SQL database with following structure has be created using the script "02_SQL_DB_Structure_creation.sql"
 Data Basis: amazon_rating:
     - Table: product_names: 
@@ -41,7 +41,7 @@ Data Basis: amazon_rating:
     - Table: ratings:
                 Fields: ID, mark, text, title, date, recommended, id_product, id_user
 
-## 3) Feed all reviews, products and users from dataframe into SQL Database
+### 3) Feed all reviews, products and users from dataframe into SQL Database
 The jupyter notebook script "03_Feeding_the_SQL_DataBase.ipynb" includes all required operations.
 Firstly, it is mandatory to connect to the DataBase (including secret password) and to launch the engine.
 The connection configuration is storaged in the file "config/configuration.py".
@@ -61,7 +61,7 @@ Some rows are giving codification errors while inserting in the Database from py
 Those problematic 63 rows are skipped with try-except and identified in a list for later analysis.
 A JSON file has been exporte including index, error type and error message of those problematic 63 rows. 
 
-## 4) Write an API using flask to receive chat messages and store them in a database (mysql).
+### 4) Write an API using flask to receive and/or store ratings in the database (mysql).
 Following endpoints have been defined in the Flask API.
     /                   [GET]
     /user_list          [GET]
@@ -85,7 +85,7 @@ The jupyter notebook script "04_Api_calls.ipynb" follow several steps showing ho
     d) Checking that the responses of every are JSON'izables
     e) Transforming the JSONs to Pandas DataFrames for further processes.
 
-## 5) Extract the emotional value of messages per user/chats and make it queryable through an endpoit.
+### 5) Extract the emotional value of the amazon reviews.
 The jupyter Notebook "05_Sentiment_analysis.ipynb" includes all required operations.
 It uses the library spacy and the function SentimentIntensityAnalyzer from library nltk, and generates the
 new columns
@@ -94,15 +94,22 @@ new columns
     - sentiment_text	
     - sentiment_text_tokenized
 
+### 6) Do it useful for your own product interests.
+    To download the reviews, it is possible to make web-scrapping in the amazon webpage of a determined product and to automatically download all reviews. THIS PART IS STILL PENDING.
+    The downloaded reviews can be uploaded to our SQL Database by using the api endpoints or just to run the script to have also the emotional analyse of those reviews.
 
 
+    Por último te faltaría el technology stack. Es decir un apartado en el que digas que librerías has utilizado y el link a la documentación de cada una. Puedes hacer algo así:
 
-
-
-
-
-
-
-## e) Do it real, use slack API to get messages and analyze the messages of our data-bootcamp channel.
-    intentar hacer web scrapping en la página de Amazon para los rating de algún producto.
-    Despues usar la api para cargarlos en la BBDD, luego descargarlos con la api y luego hacer el análisis emocional.
+## Technology stack:
+    - [Kaggle](https://www.kaggle.com/)
+    - [pandas](https://pandas.pydata.org/docs/)
+    - [datetime](https://docs.python.org/3/library/datetime.html)
+    - [sqlalchemy](https://www.sqlalchemy.org/)
+    - [json](https://docs.python.org/3/library/json.html)
+    - [requests](https://docs.python-requests.org/en/latest/)
+    - [spacy](https://spacy.io/)
+    - [SentimentIntensityAnalyzer from nltk.sentiment.vader](https://www.nltk.org/api/nltk.sentiment.html)
+    - [seaborn](https://seaborn.pydata.org/)
+    - [flask](https://flask.palletsprojects.com/en/2.0.x/)
+    
