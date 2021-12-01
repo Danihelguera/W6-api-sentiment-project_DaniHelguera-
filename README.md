@@ -1,5 +1,16 @@
 # W6-api-sentiment-project_DaniHelguera-
 
+This project tries to develop a method for "objective emotional" evaluation of amazon products review.
+It consists on several succesive scripts:
+    01_Data_loading_cleaning_exporting.ipynb
+    02_SQL_DB_Structure_creation.sql
+    02_SQL_DB_Structure_Schema_after_Reverse_Engineering.png
+    03_Feeding_the_SQL_DataBase.ipynb
+    04_Api_calls.ipynb
+    05_Sentiment_analysis.ipynb
+    main.py
+The final aim is to be able to evaluate the emotions that a product generates in the purchasers.
+To download the revies, it is possible to make web-scrapping in the amazon webpage of a determined product and to automatically download all reviews.
 
 # Project steps:
 
